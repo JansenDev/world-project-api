@@ -1,30 +1,24 @@
 require('dotenv').config();
-import express from "express";
-import bodyParser from "body-parser";
-import morgan from "morgan";
-import cors from "cors";
-import { routes } from "./api/";
+import { createApolloServer } from "./server";
+import app from "./app";
+import http from "http";
 import pool from "./api/db/pool";
-import { ApolloServer, gql } from "apollo-server";
-import server from "./server";
 
-// pool
-// const app = express();
-// const PORT = process.env.PORT || 3000;
+const PORT_GRAPHQL = process.env.PORT || 4000;
 
+const startServer = async () => {
+    const httpServer = http.createServer(app)
+    const apolloServer = createApolloServer()
+    await apolloServer.start();
+    apolloServer.applyMiddleware({
+        app,
+        path: '/',
+    })
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
-// app.use(morgan("tiny"));
-// app.use(cors());
-server();
-
-
-
-// app.use(routes)
-
-
-
-
-
-// app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+    await new Promise<void>((resolve) => {
+        httpServer.listen({ port: PORT_GRAPHQL }, resolve)
+        pool
+    })
+    console.log(`🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`);
+}
+startServer();

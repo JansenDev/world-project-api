@@ -1,22 +1,36 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloError, ApolloServer, gql } from "apollo-server-express";
+import { resolvers } from "./graphql/resolver";
+import { typeDefs } from "./graphql/schema";
 
+const apolloErrorFormatter = (error: any) => {
 
-const server = new ApolloServer({
-    // cache: 'bounded',
-    // csrfPrevention: true,
-    // cors: false,
-    resolvers: {
-        Query: {
-            greeting: () => null,
-        }
-    },
-    typeDefs: gql`
-    type Query {
-    greeting: Boolean
+    const { originalError } = error;
+    const isGraphQLError = !(originalError instanceof Error);
+
+    let normalizedError = new ApolloError(
+        'Something went wrong',
+        'INTERNAL_SERVER_ERROR',
+    );
+
+    if (error.originalError instanceof ApolloError || isGraphQLError) {
+        normalizedError = error;
     }
-    `
+
+    return normalizedError;
+};
+
+
+
+const createApolloServer = () => new ApolloServer({
+    resolvers,
+    typeDefs,
+    formatError: apolloErrorFormatter,
+    context: ({ req, res }) => {
+        // console.log("body => ", req.body);
+        // console.log("headers => ", req.headers);
+
+
+    }
 })
 
-server.listen().then(res => console.log(`Apollo server ON!`, res.url))
-
-export default () => server
+export { createApolloServer }
