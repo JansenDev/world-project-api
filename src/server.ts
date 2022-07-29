@@ -1,10 +1,7 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer, gql } from "apollo-server-express";
 
 
-const server = new ApolloServer({
-    // cache: 'bounded',
-    // csrfPrevention: true,
-    // cors: false,
+const createApolloServer = () => new ApolloServer({
     resolvers: {
         Query: {
             greeting: () => null,
@@ -14,9 +11,9 @@ const server = new ApolloServer({
     type Query {
     greeting: Boolean
     }
-    `
+    `,
 })
 
-server.listen().then(res => console.log(`Apollo server ON!`, res.url))
+// server.listen({ port: process.env.PORT || 4000 }).then(res => { pool; console.log(`Apollo server ON!`, res.url) })
 
-export default () => server
+export { createApolloServer }

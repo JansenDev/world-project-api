@@ -13,8 +13,6 @@ const pool = new Pool({
 pool.query("SELECT * FROM gender")
     .then(_ => console.log('DB Connect! '))
     .catch(err => console.log(err))
-console.log("conectado");
-
 
 
 export default pool

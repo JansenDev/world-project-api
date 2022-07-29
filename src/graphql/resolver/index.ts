@@ -1,0 +1,5 @@
+// {
+//     Query: {
+//         greeting: () => null,
+//     }
+// }
