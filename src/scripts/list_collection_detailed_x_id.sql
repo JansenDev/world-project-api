@@ -1,5 +1,5 @@
-drop function if exists list_collections_x_id;
-create function list_collections_x_id( id_collection int)
+drop function if exists list_collection_detailed_x_id;
+create function list_collection_detailed_x_id( id_collection int)
     returns TABLE
             (
                 collection_id bigint,
@@ -24,7 +24,7 @@ as
 $$
 BEGIN
     /*************
-            | * Descripcion : FUNCTION public.list_collections
+            | * Descripcion : FUNCTION public.list_collection_detailed_x_id
             | * Proposito   : Funcion para Obtener detalles de una collecion por id
             | * Autor       : Jhonatan Segura Galindo
             | * Proyecto    : World Project

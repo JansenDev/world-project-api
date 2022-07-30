@@ -10,9 +10,9 @@ const pool = new Pool({
     password: process.env.WP_DB_PASSWORD || '12345'
 })
 
-pool.query("SELECT * FROM gender")
-    .then(_ => console.log('DB Connect! '))
-    .catch(err => console.log(err))
+// pool.query("SELECT * FROM gender")
+//     .then(_ => console.log('DB Connect! '))
+//     .catch(err => console.log(err))
 
 
 export default pool
