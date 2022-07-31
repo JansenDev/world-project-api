@@ -1,8 +1,7 @@
-import { ICollectionPaginate } from "model/collection.model";
-import { collecionRepository } from "../repository/collection.repository";
+import { collectionRepositoryInstance } from "../repository/collection.repository";
 
 class CollectionService {
-    constructor(private collectionRepository = collecionRepository) { }
+    constructor(private collectionRepository = collectionRepositoryInstance) { }
 
     async getCollectionPaginated(offset = 0, limit = 10) {
         return this.collectionRepository.getPaginated(offset, limit)
@@ -13,4 +12,4 @@ class CollectionService {
     }
 }
 
-export const collectionService = new CollectionService();
+export const collectionServiceInstance = new CollectionService();

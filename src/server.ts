@@ -1,4 +1,4 @@
-import { ApolloError, ApolloServer, gql } from "apollo-server-express";
+import { ApolloError, ApolloServer } from "apollo-server-express";
 import { resolvers } from "./graphql/resolver";
 import { typeDefs } from "./graphql/schema";
 
@@ -28,8 +28,6 @@ const createApolloServer = () => new ApolloServer({
     context: ({ req, res }) => {
         // console.log("body => ", req.body);
         // console.log("headers => ", req.headers);
-
-
     }
 })
 
