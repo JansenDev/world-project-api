@@ -9,10 +9,10 @@ class PageService {
     }
 }
 
-export const pageSErvice = new PageService();
+export const pageServiceInstance = new PageService();
 
-// (async () => {
-//     const repo = new PageService()
-//     const data = await repo.listByIdCollectionAndVolumenNumber(1, 1)
-//     console.log(data.rowCount);
-// })();
+(async () => {
+    const repo = new PageService()
+    const data = await repo.listByIdCollectionAndVolumenNumber(1, 1)
+    console.log(data);
+})();

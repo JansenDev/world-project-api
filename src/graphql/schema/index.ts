@@ -36,11 +36,28 @@ const typeDefs = gql`
         genders: [String]
     }
 
+    type PageContent{
+        page_number: Int
+        image: String,
+        text: String,
+        chapter_type: String,
+        title: String,
+        book_id: Int
+    }
+
+    input PageContentInput{
+        id_collection:ID
+        volume_number:Int
+        offset:Int
+        limit:Int
+    }
+
 
     type Query {
     greeting: String
     getCollectionsPaginated(input:PaginatedInput): [Collection]
     getCollectionDetailedById(idCollection:ID):CollectionDetailed
+    getPagesByIdCollectionAndVolumeNumber(input:PageContentInput):[PageContent]
     }
     `
 
